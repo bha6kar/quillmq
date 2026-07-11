@@ -1,0 +1,43 @@
+name: Publish to PyPI
+
+# Publishes when you push a version tag (vX.Y.Z) or create a GitHub Release.
+# Uses PyPI Trusted Publishing (OIDC), so no API token is stored in the repo.
+# Configured at https://pypi.org/manage/project/quillmq/settings/publishing/
+# with: owner bha6kar, repo quillmq, workflow publish.yml, environment pypi.
+
+on:
+  push:
+    tags:
+      - "v*"
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Build sdist and wheel
+        run: uv build
+      - name: Upload artefacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write # required for trusted publishing
+    steps:
+      - name: Download artefacts
+        uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist/
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

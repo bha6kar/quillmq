@@ -1,0 +1,89 @@
+[project]
+name = "quillmq"
+version = "0.1.0"
+description = "QuillMQ: a lightweight single-node message broker (work queues, pub/sub, RPC, durable delivery)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "bha6kar", email = "bha6kar@gmail.com" }]
+keywords = [
+    "message-broker",
+    "message-queue",
+    "pubsub",
+    "rpc",
+    "asyncio",
+    "queue",
+    "broker",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Framework :: AsyncIO",
+    "Topic :: System :: Networking",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = ["aiosqlite>=0.19", "msgspec>=0.18"]
+
+[project.urls]
+Homepage = "https://github.com/bha6kar/quillmq"
+Repository = "https://github.com/bha6kar/quillmq"
+Issues = "https://github.com/bha6kar/quillmq/issues"
+
+[project.scripts]
+quillmq = "quillmq.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=5",
+    "pytest-timeout>=2.3",
+    "ruff>=0.6",
+    "mypy>=1.11",
+    "pre-commit>=3.8",
+    "trustme>=1.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/quillmq"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "--cov=quillmq --cov-report=term-missing --cov-fail-under=95"
+
+[tool.coverage.run]
+branch = true
+source = ["quillmq"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "C4"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["src/quillmq"]
+check_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+no_implicit_optional = true

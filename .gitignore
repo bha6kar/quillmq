@@ -1,0 +1,22 @@
+# Byte-compiled / caches
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+
+# Build artefacts
+dist/
+*.egg-info/
+
+# Runtime data
+*.db
+*.db-shm
+*.db-wal
+quill-data/
+
+# OS
+.DS_Store

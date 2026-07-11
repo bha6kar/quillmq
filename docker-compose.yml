@@ -1,0 +1,21 @@
+# Standalone QuillMQ broker. Run with: docker compose up
+# The named volume keeps durable messages across restarts.
+services:
+  quillmq:
+    build: .
+    image: quillmq:latest
+    container_name: quillmq
+    ports:
+      - "5555:5555"
+    volumes:
+      - quillmq-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "quillmq", "stats", "--url", "quill://127.0.0.1:5555"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  quillmq-data:

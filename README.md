@@ -1,7 +1,7 @@
 # QuillMQ
 
 [![CI](https://github.com/bha6kar/quillmq/actions/workflows/ci.yml/badge.svg)](https://github.com/bha6kar/quillmq/actions/workflows/ci.yml)
-[![PyPI version](https://img.shields.io/pypi/v/quillmq.svg)](https://pypi.org/project/quillmq/)
+[![PyPI version](https://img.shields.io/pypi/v/quillmq)](https://pypi.org/project/quillmq/)
 [![Python versions](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://pypi.org/project/quillmq/)
 [![Licence](https://img.shields.io/badge/licence-Apache--2.0-blue.svg)](LICENSE)
 
